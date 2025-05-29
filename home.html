@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunjako Beach</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E0F7FA;
+            /* Light cyan background */
+        }
+
+        /* Styles for the active navigation link */
+        .nav-link.active {
+            color: #0E7490;
+            /* equivalent to text-cyan-900 */
+            background-color: #A5F3FC;
+            /* equivalent to bg-cyan-200 */
+            font-weight: 600;
+            /* equivalent to font-semibold */
+        }
+
+        /* Styles for an active page section */
+        .page-section.active {
+            display: block;
+        }
+
+        /* Wavy divider styles */
+        .wavy-divider {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 80px;
+            /* Adjust height of the wave */
+        }
+
+        .wavy-divider::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-repeat: repeat-x;
+            height: 20px;
+            /* Height of the wave crest */
+            background-size: 40px 40px;
+            /* Size of one wave cycle */
+            background-image: radial-gradient(circle at 20px -10px, transparent 20px, #E0F7FA 21px);
+            /* Light cyan to match body */
+        }
+
+        .wavy-divider.top::before {
+            top: 0;
+            bottom: auto;
+            background-image: radial-gradient(circle at 20px 20px, transparent 20px, #E0F7FA 21px);
+            /* Light cyan to match body */
+            transform: rotate(180deg);
+        }
+
+        .footer-bg {
+            background-color: #006064;
+            /* Dark cyan */
+        }
+
+        .logo-font {
+            font-family: 'Pacifico', cursive;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex items-center space-x-2" onclick="showPage('home')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40" class="h-10 w-auto text-cyan-600">
+                        <defs>
+                            <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0097A7;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#waveGrad)"
+                            d="M0 20 Q 12.5 5, 25 20 T 50 20 T 75 20 T 100 20 L 100 35 Q 87.5 50, 75 35 T 50 35 T 25 35 T 0 35 Z" />
+                        <circle cx="85" cy="10" r="7" fill="#FFEB3B" />
+                        <text x="5" y="18" class="logo-font text-lg" fill="#00796B"
+                            style="font-size:12px;">Bunjako</text>
+                        <text x="25" y="30" class="logo-font text-lg" fill="#004D40"
+                            style="font-size:12px;">Beach</text>
+                    </svg>
+                </a>
+
+                <nav class="hidden md:flex space-x-2">
+                    <a href="#" id="nav-home"
+                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                        onclick="showPage('home', this)">Home</a>
+                    <a href="#" id="nav-activities"
+                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                        onclick="showPage('activities', this)">Activities</a>
+                    <a href="#" id="nav-bookings"
+                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                        onclick="showPage('bookings', this)">Bookings</a>
+                    <a href="#" id="nav-contact"
+                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                        onclick="showPage('contact', this)">Contact</a>
+                </nav>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-cyan-700 hover:text-cyan-900 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#"
+                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                onclick="showPage('home', this); closeMobileMenu();">Home</a>
+            <a href="#"
+                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                onclick="showPage('activities', this); closeMobileMenu();">Activities</a>
+            <a href="#"
+                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                onclick="showPage('bookings', this); closeMobileMenu();">Bookings</a>
+            <a href="#"
+                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300"
+                onclick="showPage('contact', this); closeMobileMenu();">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="page-section hidden p-6 md:p-10 min-h-[calc(100vh-200px)]">
+            <div class="hero-bg text-white py-20 md:py-32"
+                style="background-image:  url('lakeview.jpg'); background-size: cover; background-position: center; height: 400px; width: 100%;">
+                <div class="container mx-auto text-center px-4">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 logo-font"
+                        style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Welcome to Bunjako Beach</h1>
+                    <p class="text-lg md:text-xl mb-8" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Your perfect
+                        getaway for sun, sand, and serenity.</p>
+                    <button
+                        class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300 text-xl"
+                        onclick="showPage('bookings')">Book Your Escape</button>
+                </div>
+            </div>
+            <div class="wavy-divider"></div>
+            <div class="container mx-auto py-10 md:py-16 px-4">
+                <h2 class="text-3xl font-semibold text-cyan-800 text-center mb-10">Discover Paradise</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <img src="mainhome.jpg" alt="swing pic"
+                            class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                    <div class="text-gray-700 text-lg">
+                        <p class="mb-4">Bunjako Beach offers pristine sands, crystal-clear waters, and a tranquil
+                            atmosphere perfect for relaxation and adventure. Located on the scenic shores of Lake
+                            Victoria, it's an idyllic spot for families, couples, and solo travelers alike.</p>
+                        <p class="mb-4">Escape the hustle and bustle and immerse yourself in the natural beauty of
+                            Uganda. Whether you're looking to unwind by the water, engage in exciting activities, or
+                            simply enjoy a breathtaking sunset, Bunjako Beach has something for everyone.</p>
+                        <p>We pride ourselves on providing a memorable experience with a touch of local charm.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <h3 class="text-2xl font-semibold text-cyan-700 mb-6">Why Choose Bunjako?</h3>
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div
+                            class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 p-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-cyan-500 mx-auto mb-3"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <h4 class="text-xl font-semibold text-cyan-800 mb-2">Stunning Location</h4>
+                            <p class="text-gray-600">Beautiful views and direct access to Lake Victoria's shores.</p>
+                        </div>
+                        <div
+                            class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 p-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-cyan-500 mx-auto mb-3"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h4 class="text-xl font-semibold text-cyan-800 mb-2">Family Friendly</h4>
+                            <p class="text-gray-600">Safe and enjoyable for all ages, with activities for kids.</p>
+                        </div>
+                        <div
+                            class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 p-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-cyan-500 mx-auto mb-3"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            <h4 class="text-xl font-semibold text-cyan-800 mb-2">Exciting Activities</h4>
+                            <p class="text-gray-600">From boat rides to beach volleyball, there's always something to
+                                do.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activities" class="page-section hidden p-6 md:p-10 min-h-[calc(100vh-200px)] bg-cyan-50">
+            <div class="wavy-divider top"></div>
+            <div class="container mx-auto py-10 md:py-16 px-4">
+                <h2 class="text-3xl font-semibold text-cyan-800 text-center mb-12">Fun Under the Sun</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="boats.jpg" alt="Boat Ride"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-cyan-700 mb-2">Boat Rides </h3>
+                            <p class="text-gray-600 mb-4">Explore the serene waters of Lake Victoria with our guided
+                                boat tours. Try your hand at fishing and catch the local tilapia!</p>
+                            <button
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300"
+                                onclick="showPage('bookings')">Inquire Now</button>
+                        </div>
+                    </div>
+                    <div
+                        class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="volleyball.jpg"
+                            alt="Beach Volleyball" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-cyan-700 mb-2">Beach Volleyball & Games</h3>
+                            <p class="text-gray-600 mb-4">Join a friendly game of beach volleyball or enjoy other beach
+                                games. Fun for all skill levels and ages.</p>
+                            <button
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300"
+                                onclick="showPage('bookings')">Join the Fun</button>
+                        </div>
+                    </div>
+                    <div
+                        class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="gardens.jpg"
+                            alt="gardens" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-cyan-700 mb-2">Gardens & Relaxation</h3>
+                            <p class="text-gray-600 mb-4">Soak up the sun on our comfortable loungers, or find a shady
+                                spot under a palm tree to read a book and unwind.</p>
+                            <button
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300"
+                                onclick="showPage('bookings')">Find Your Spot</button>
+                        </div>
+                    </div>
+                    <div
+                        class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="restaurant.jpg" alt="food and drinks"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-cyan-700 mb-2">Bar & Meat</h3>
+                            <p class="text-gray-600 mb-4">Bunjako is home for drinks and good times. Bring your crew and
+                                have a taste of our muchomo with a cold drink in your hand.</p>
+                            <button
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300"
+                                onclick="showPage('bookings')">Book a Tour</button>
+                        </div>
+                    </div>
+                    <div
+                        class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="picnic.jpg" alt="Picnics"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-cyan-700 mb-2">Picnics in the sun</h3>
+                            <p class="text-gray-600 mb-4">Enjoy a picnic on the shores of lake victoria in the sun with tha refreshing lake 
+                                breeze.</p>
+                            <button
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300"
+                                onclick="showPage('bookings')">Arrange a Visit</button>
+                        </div>
+                    </div>
+                    <div
+                        class="card bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+                        <img src="bararea.jpg" alt="bar area"
+                            class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-2xl font-semibold text-cyan-700 mb-2">Sunset Vibes</h3>
+                            <p class="text-gray-600 mb-4">End your day with a spectacular Bunjako sunset, often
+                                accompanied with unmatched thrills and chills.</p>
+                            <button
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300"
+                                onclick="showPage('bookings')">Reserve a Spot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider"></div>
+        </section>
+
+        <section id="bookings" class="page-section hidden p-6 md:p-10 min-h-[calc(100vh-200px)]">
+            <div class="container mx-auto py-10 md:py-16 px-4">
+                <h2 class="text-3xl font-semibold text-cyan-800 text-center mb-10">Book Your Stay or Activity</h2>
+                <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-2xl">
+                    <p class="text-gray-600 mb-6 text-center">Fill out the form below to inquire about bookings. We'll
+                        get back to you shortly!</p>
+                    <form id="bookingForm" action="send_email.php" method="POST">
+                        <div class="grid sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="booking-name"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="booking-name" name="booking_name"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required>
+                            </div>
+                            <div>
+                                <label for="booking-email"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Email
+                                    Address</label>
+                                <input type="email" id="booking-email" name="booking_email"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="grid sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="booking-phone"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Phone Number
+                                    (Optional)</label>
+                                <input type="tel" id="booking-phone" name="booking_phone"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label for="booking-date"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Preferred Date of
+                                    Visit</label>
+                                <input type="date" id="booking-date" name="booking_date"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="booking-guests"
+                                class="form-label block text-sm font-medium text-gray-700 mb-1">Number of
+                                Guests/Participants</label>
+                            <input type="number" id="booking-guests" name="booking_guests"
+                                class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                min="1" value="1" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="booking-type"
+                                class="form-label block text-sm font-medium text-gray-700 mb-1">Booking For</label>
+                            <select id="booking-type" name="booking_type"
+                                class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors">
+                                <option value="accommodation">Accommodation</option>
+                                <option value="activity">Specific Activity</option>
+                                <option value="general_inquiry">General Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="booking-message"
+                                class="form-label block text-sm font-medium text-gray-700 mb-1">Message / Specific
+                                Requests</label>
+                            <textarea id="booking-message" name="booking_message" rows="4"
+                                class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                placeholder="Let us know if you have any special requests or questions..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit"
+                                class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300 text-lg">Send
+                                Inquiry</button>
+                        </div>
+                    </form>
+                    <p class="text-xs text-gray-500 mt-4 text-center">Note: Submitting this form will attempt to send
+                        data to 'send_email.php'. Ensure you have a backend script at this location to process the
+                        email.</p>
+                    <div id="booking-form-message" class="mt-4 text-center"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section hidden p-6 md:p-10 min-h-[calc(100vh-200px)] bg-cyan-50">
+            <div class="wavy-divider top"></div>
+            <div class="container mx-auto py-10 md:py-16 px-4">
+                <h2 class="text-3xl font-semibold text-cyan-800 text-center mb-12">Get In Touch</h2>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <h3 class="text-2xl font-semibold text-cyan-700 mb-6">Contact Information</h3>
+                        <p class="text-gray-700 mb-4">
+                            <strong class="font-semibold">Bunjako Beach Administration</strong><br>
+                            Bunjako Island, Mpigi District,<br>
+                            Uganda
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <strong class="font-semibold">Phone:</strong> <a href="tel:+256700000000"
+                                class="text-cyan-600 hover:underline">+256 700 000 000</a> (Sample)
+                        </p>
+                        <p class="text-gray-700 mb-4">
+                            <strong class="font-semibold">Email:</strong> <a href="mailto:info@bunjakobeach.ug"
+                                class="text-cyan-600 hover:underline">info@bunjakobeach.ug</a> (Sample)
+                        </p>
+                        <h4 class="text-xl font-semibold text-cyan-700 mt-6 mb-3">Office Hours</h4>
+                        <p class="text-gray-700">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                        <p class="text-gray-700">Saturday - Sunday: 10:00 AM - 3:00 PM (For inquiries)</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-2xl">
+                        <h3 class="text-2xl font-semibold text-cyan-700 mb-6">Send Us a Message</h3>
+                        <form id="contactForm" action="send_contact_email.php" method="POST">
+                            <div class="mb-4">
+                                <label for="contact-name"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" id="contact-name" name="contact_name"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-email"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Your Email</label>
+                                <input type="email" id="contact-email" name="contact_email"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-subject"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="contact-subject" name="contact_subject"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="contact-message"
+                                    class="form-label block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="contact-message" name="contact_message" rows="5"
+                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-colors"
+                                    required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit"
+                                    class="btn px-6 py-3 bg-cyan-600 text-white font-semibold rounded-lg shadow-md hover:bg-cyan-700 transition-colors duration-300">Send
+                                    Message</button>
+                            </div>
+                        </form>
+                        <p class="text-xs text-gray-500 mt-4 text-center">Note: Submitting this form will attempt to
+                            send data to 'send_contact_email.php'.</p>
+                        <div id="contact-form-message" class="mt-4 text-center"></div>
+                    </div>
+                </div>
+                <div class="mt-12">
+                    <h3 class="text-2xl font-semibold text-cyan-800 text-center mb-6">Find Us Here</h3>
+                    <div
+                        class="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-xl bg-gray-200 flex items-center justify-center">
+                        <img src="https://placehold.co/800x450/A0AEC0/FFFFFF?text=Map+of+Bunjako+Island+(Placeholder)"
+                            alt="Map Placeholder" class="w-full h-full object-cover">
+                        <p class="absolute text-gray-700 text-sm">Actual Google Map embed would go here.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider"></div>
+        </section>
+    </main>
+
+    <footer class="footer-bg text-cyan-100 py-10">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <a href="#" class="px-3 hover:text-white" onclick="showPage('home')">Home</a>|
+                <a href="#" class="px-3 hover:text-white" onclick="showPage('activities')">Activities</a>|
+                <a href="#" class="px-3 hover:text-white" onclick="showPage('bookings')">Bookings</a>|
+                <a href="#" class="px-3 hover:text-white" onclick="showPage('contact')">Contact</a>
+            </div>
+            <p class="mb-2">© <span id="currentYear"></span> Bunjako Beach. All Rights Reserved.</p>
+            <p class="text-sm text-cyan-200">Designed with <span class="text-red-400">♥</span> for a memorable beach
+                experience.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Page navigation
+        const pages = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('header nav a.nav-link'); // Desktop nav links
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a.nav-link'); // Mobile nav links
+
+        function showPage(pageId, clickedLink) {
+            // Hide all pages
+            pages.forEach(page => {
+                // page.classList.remove('active'); // Remove active class which controls display:block
+                page.classList.add('hidden'); // Ensure all pages are hidden by default
+            });
+
+            // Show the target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                // targetPage.classList.add('active');
+                targetPage.classList.remove('hidden'); // Make the target page visible
+            }
+
+            // Consolidate nav link updates
+            const allNavLinks = [...navLinks, ...mobileNavLinks];
+            allNavLinks.forEach(link => {
+                link.classList.remove('active'); // Remove from all
+                // Add active class if the link's onclick corresponds to the current pageId
+                if (link.getAttribute('onclick').includes(`showPage('${pageId}'`)) {
+                    link.classList.add('active');
+                }
+            });
+
+            window.scrollTo(0, 0); // Scroll to top on page change
+        }
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Form submission handling (basic example, prevent default and show message)
+        const bookingForm = document.getElementById('bookingForm');
+        const bookingFormMessage = document.getElementById('booking-form-message');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent default form submission
+                const name = document.getElementById('booking-name').value;
+                const email = document.getElementById('booking-email').value;
+                const date = document.getElementById('booking-date').value;
+
+                if (!name || !email || !date) {
+                    bookingFormMessage.innerHTML = '<p class="text-red-500">Please fill in all required fields (Name, Email, Date).</p>';
+                    return;
+                }
+                bookingFormMessage.innerHTML = '<p class="text-green-600">Thank you for your inquiry! If this were a live server, your message would be sent. (This is a demo)</p>';
+                // bookingForm.reset(); // Optionally reset form
+                setTimeout(() => { bookingFormMessage.innerHTML = ''; }, 5000);
+            });
+        }
+
+        const contactForm = document.getElementById('contactForm');
+        const contactFormMessage = document.getElementById('contact-form-message');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const name = document.getElementById('contact-name').value;
+                const email = document.getElementById('contact-email').value;
+                const message = document.getElementById('contact-message').value;
+
+                if (!name || !email || !message) {
+                    contactFormMessage.innerHTML = '<p class="text-red-500">Please fill in all fields.</p>';
+                    return;
+                }
+                contactFormMessage.innerHTML = '<p class="text-green-600">Thank you for your message! (This is a demo)</p>';
+                // contactForm.reset();
+                setTimeout(() => { contactFormMessage.innerHTML = ''; }, 5000);
+            });
+        }
+
+        // Initialize with the home page
+        // Ensure home is active and not hidden on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+
+    </script>
+</body>
+
+</html>

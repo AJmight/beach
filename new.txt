@@ -1,0 +1,5 @@
+  <!-- <div class="discover-carousel-container">
+                        <img id="discoverCarouselImage" src="mainhome.jpg" alt="Discover Bunjako carousel">
+                        <button onclick="prevDiscoverImage()" class="discover-carousel-button prev">‹</button>
+                        <button onclick="nextDiscoverImage()" class="discover-carousel-button next">›</button>
+                    </div> -->

@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunjako Beach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Basic Reset & Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #E0F7FA;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* General Utility Classes */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        header .container>div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-link svg {
+            height: 40px;
+            width: auto;
+            color: #0891B2;
+        }
+
+        .logo-link>*:not(:last-child) {
+            margin-right: 0.5rem;
+        }
+
+        nav.desktop-nav {
+            display: none;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            font-size: 1.125rem;
+            color: #0E7490;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            display: block;
+        }
+
+        .nav-link:hover {
+            color: #164E63;
+            background-color: #CFFAFE;
+        }
+
+        .nav-link.active {
+            color: #0E7490;
+            background-color: #A5F3FC;
+            font-weight: 600;
+        }
+
+        .desktop-nav .nav-link {
+            margin-right: 0.5rem;
+        }
+
+        .desktop-nav .nav-link:last-child {
+            margin-right: 0;
+        }
+
+        #mobile-menu-button {
+            color: #0E7490;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        #mobile-menu-button:hover {
+            color: #164E63;
+        }
+
+        #mobile-menu-button svg {
+            height: 24px;
+            width: 24px;
+            display: block;
+        }
+
+        #mobile-menu {
+            background-color: #fff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        #mobile-menu .nav-link {
+            text-align: center;
+        }
+
+        /* Page Section Styles */
+        .page-section {
+            display: none;
+            /* padding: 1.5rem; Default padding removed, apply per section or container */
+            min-height: calc(100vh - 200px);
+            /* Footer and header approx height */
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        #home {
+            /* Remove default padding for home to allow hero full bleed */
+            padding: 0;
+        }
+
+        #activities,
+        #contact {
+            background-color: #ECFEFF;
+            padding: 1.5rem;
+            /* Add padding back for these sections */
+        }
+
+        #bookings {
+            /* Add padding for bookings section */
+            padding: 1.5rem;
+        }
+
+
+        /* Hero Section Carousel */
+        .hero-carousel-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            background-color: #B2EBF2;
+        }
+
+        .hero-carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-carousel-slide.active {
+            opacity: 1;
+        }
+
+        .hero-text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            text-align: center;
+            z-index: 10;
+            padding: 1rem;
+            width: 90%;
+            max-width: 700px;
+        }
+
+        .hero-text-overlay h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-text-overlay p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Button Styles (General) */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background-color: #0891B2;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .hero-text-overlay .btn {
+            font-size: 1.125rem;
+        }
+
+        .btn:hover {
+            background-color: #067C94;
+        }
+
+        /* Titles within sections */
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: #0E7490;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0E7490;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        /* "Discover Paradise" Section Specific Grid & Image */
+        .discover-grid {
+            display: grid;
+            gap: 2rem;
+            /* Default gap */
+            align-items: center;
+            /* Vertically align items in the grid */
+        }
+
+        .discover-image-container {
+            /* Added a container for the image */
+            border-radius: 0.5rem;
+            /* rounded-lg */
+            overflow: hidden;
+            /* To clip image to border-radius */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            /* shadow-xl */
+        }
+
+        .discover-image {
+            display: block;
+            /* Remove extra space below image */
+            width: 100%;
+            /* Make image responsive */
+            height: auto;
+            /* Maintain aspect ratio */
+            max-height: 400px;
+            /* Optional: constrain max height */
+            object-fit: cover;
+            /* Cover the area, might crop */
+            border-radius: 0.5rem;
+            /* Match container if not using overflow hidden on parent */
+        }
+
+        .discover-text {
+            font-size: 1.125rem;
+            color: #374151;
+        }
+
+        .discover-text p {
+            margin-bottom: 1rem;
+        }
+
+        .discover-text p:last-child {
+            margin-bottom: 0;
+        }
+
+
+        /* Card Styles */
+        .card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img.activity-card-image {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+        }
+
+        .card .card-icon-svg {
+            height: 48px;
+            width: 48px;
+            color: #22D3EE;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 0.75rem;
+        }
+
+        .card .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .card .card-text-area {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .card h3,
+        .card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0E7490;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: #4B5563;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .card .btn {
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            align-self: flex-start;
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-container>p:first-child {
+            color: #4B5563;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+
+        .form-input,
+        select.form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #D1D5DB;
+            border-radius: 0.5rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .form-input:focus,
+        select.form-input:focus {
+            border-color: transparent;
+            box-shadow: 0 0 0 2px #22D3EE;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-container .btn {
+            font-size: 1.125rem;
+        }
+
+        .form-note {
+            font-size: 0.75rem;
+            color: #6B7280;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        #booking-form-message,
+        #contact-form-message {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* Footer Styles */
+        .footer-bg {
+            background-color: #006064;
+            color: #A5F3FC;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        .footer-bg a {
+            padding: 0 0.75rem;
+            color: #A5F3FC;
+            text-decoration: none;
+        }
+
+        .footer-bg a:hover {
+            color: #fff;
+        }
+
+        .footer-bg p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-bg p:last-child {
+            font-size: 0.875rem;
+            color: #67E8F9;
+        }
+
+        .footer-bg .text-red-400 {
+            color: #F87171;
+        }
+
+        /* Wavy Divider */
+        .wavy-divider {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 80px;
+        }
+
+        .wavy-divider::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-repeat: repeat-x;
+            height: 20px;
+            background-size: 40px 40px;
+            background-image: radial-gradient(circle at 20px -10px, transparent 20px, #E0F7FA 21px);
+        }
+
+        .wavy-divider.top::before {
+            top: 0;
+            bottom: auto;
+            background-image: radial-gradient(circle at 20px 20px, transparent 20px, #E0F7FA 21px);
+            transform: rotate(180deg);
+        }
+
+        .logo-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Responsive Styles */
+        @media (min-width: 768px) {
+
+            /* md breakpoint */
+            .md-hidden {
+                display: none !important;
+            }
+
+            nav.desktop-nav {
+                display: flex;
+            }
+
+            #mobile-menu {
+                display: none !important;
+            }
+
+            .hero-text-overlay h1 {
+                font-size: 3.25rem;
+            }
+
+            .hero-text-overlay p {
+                font-size: 1.25rem;
+            }
+
+            .page-section {
+                padding: 2.5rem;
+            }
+
+            #home {
+                padding: 0;
+            }
+
+            /* Keep home full bleed */
+            #activities,
+            #contact,
+            #bookings {
+                padding: 2.5rem;
+            }
+
+
+            .grid-md-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .discover-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            /* Apply 2 columns on md for discover grid */
+
+            .form-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .card-grid-md-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 640px) {
+
+            /* sm breakpoint */
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            .card-grid-sm-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+
+            /* lg breakpoint */
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .card-grid-lg-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .hero-text-overlay h1 {
+                font-size: 3.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div>
+                <a href="#" class="logo-link" onclick="showPage('home', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40">
+                        <defs>
+                            <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0097A7;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path fill="url(#waveGrad)"
+                            d="M0 20 Q 12.5 5, 25 20 T 50 20 T 75 20 T 100 20 L 100 35 Q 87.5 50, 75 35 T 50 35 T 25 35 T 0 35 Z" />
+                        <circle cx="85" cy="10" r="7" fill="#FFEB3B" />
+                        <text x="5" y="18" class="logo-font" fill="#00796B" style="font-size:12px;">Bunjako</text>
+                        <text x="25" y="30" class="logo-font" fill="#004D40" style="font-size:12px;">Beach</text>
+                    </svg>
+                </a>
+
+                <nav class="desktop-nav">
+                    <a href="#" id="nav-home" class="nav-link" onclick="showPage('home', this)">Home</a>
+                    <a href="#" id="nav-activities" class="nav-link"
+                        onclick="showPage('activities', this)">Activities</a>
+                    <a href="#" id="nav-bookings" class="nav-link" onclick="showPage('bookings', this)">Bookings</a>
+                    <a href="#" id="nav-contact" class="nav-link" onclick="showPage('contact', this)">Contact</a>
+                </nav>
+
+                <div class="md-hidden">
+                    <button id="mobile-menu-button">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden">
+            <a href="#" class="nav-link" onclick="showPage('home', this); closeMobileMenu();">Home</a>
+            <a href="#" class="nav-link" onclick="showPage('activities', this); closeMobileMenu();">Activities</a>
+            <a href="#" class="nav-link" onclick="showPage('bookings', this); closeMobileMenu();">Bookings</a>
+            <a href="#" class="nav-link" onclick="showPage('contact', this); closeMobileMenu();">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="page-section">
+            <div class="hero-carousel-container">
+                <div id="heroCarouselSlide1" class="hero-carousel-slide active">
+                    <img src="lakeview.jpg" alt="Scenic view of Bunjako Beach">
+                </div>
+                <div id="heroCarouselSlide2" class="hero-carousel-slide">
+                    <img src="beachview.jpg" alt="Relaxing beach chairs">
+                </div>
+                <div id="heroCarouselSlide3" class="hero-carousel-slide">
+                    <img src="overview.jpg" alt="Overview of the beach area">
+                </div>
+                <div id="heroCarouselSlide4" class="hero-carousel-slide">
+                    <img src="sideview.jpg" alt="Side view of Bunjako">
+                </div>
+                <div id="heroCarouselSlide5" class="hero-carousel-slide">
+                    <img src="dj.jpg" alt="DJ playing at Bunjako">
+                </div>
+                <div class="hero-text-overlay">
+                    <h1 class="logo-font">Welcome to Bunjako Beach</h1>
+                    <p>Your perfect getaway for sun, sand, and serenity.</p>
+                    <button class="btn" onclick="showPage('bookings')">Book Your Escape</button>
+                </div>
+            </div>
+            <div class="wavy-divider"></div>
+            <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+                <h2 class="section-title">Discover Paradise</h2>
+
+                <div class="discover-grid">
+                    <div class="discover-image-container">
+                        <img src="mainhome.jpg"
+                            alt="Woman in a yellow top and black skirt sitting on a wooden swing at Bunjako Beach, facing the lake with her feet off the ground, arms holding the swing ropes, and her sandals on the sand below. The swing frame displays the words Bunjako Beach on wooden paddles and a sign above. The beach is sandy with a palm tree and blue sky, creating a joyful and relaxed atmosphere. Text on the swing and paddles reads Bunjako Beach."
+                            class="discover-image">
+                    </div>
+                    <div class="discover-text">
+                        <p>Bunjako Beach offers pristine sands, crystal-clear waters, and a tranquil
+                            atmosphere perfect for relaxation and adventure. Located on the scenic shores of Lake
+                            Victoria, it's an idyllic spot for families, couples, and solo travelers alike.</p>
+                        <p>Escape the hustle and bustle and immerse yourself in the natural beauty of
+                            Uganda. Whether you're looking to unwind by the water, engage in exciting activities, or
+                            simply enjoy a breathtaking sunset, Bunjako Beach has something for everyone.</p>
+                        <p>We pride ourselves on providing a memorable experience with a touch of local charm.</p>
+                    </div>
+                </div>
+
+                <div class="text-center" style="margin-top: 3rem;">
+                    <h3 class="section-subtitle">Why Choose Bunjako?</h3>
+                    <div class="grid card-grid-sm-cols-2 card-grid-lg-cols-3">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-text-area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon-svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                    <h4>Stunning Location</h4>
+                                    <p>Beautiful views and direct access to Lake Victoria's shores.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-text-area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon-svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <h4>Family Friendly</h4>
+                                    <p>Safe and enjoyable for all ages, with activities for kids and various amenities.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-text-area">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="card-icon-svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                    <h4>Exciting Activities</h4>
+                                    <p>From boat rides to beach volleyball, there's always something to do for everyone.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activities" class="page-section">
+            <div class="wavy-divider top"></div>
+            <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+                <h2 class="section-title">Fun Under the Sun</h2>
+                <div class="grid card-grid-md-cols-2 card-grid-lg-cols-3">
+                    <div class="card">
+                        <img src="boats.jpg" alt="Boat Ride" class="activity-card-image">
+                        <div class="card-content">
+                            <div class="card-text-area">
+                                <h3>Boat Rides</h3>
+                                <p>Explore the serene waters of Lake Victoria with our guided boat tours. Try your hand
+                                    at fishing and catch the local tilapia! An unforgettable experience awaits.</p>
+                            </div>
+                            <button class="btn" onclick="showPage('bookings')">Inquire Now</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="volleyball.jpg" alt="Beach Volleyball" class="activity-card-image">
+                        <div class="card-content">
+                            <div class="card-text-area">
+                                <h3>Beach Volleyball & Games</h3>
+                                <p>Join a friendly game of beach volleyball or enjoy other beach games. Fun for all
+                                    skill levels and ages. We provide all the equipment.</p>
+                            </div>
+                            <button class="btn" onclick="showPage('bookings')">Join the Fun</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="gardens.jpg" alt="gardens" class="activity-card-image">
+                        <div class="card-content">
+                            <div class="card-text-area">
+                                <h3>Gardens & Relaxation</h3>
+                                <p>Soak up the sun on our comfortable loungers, or find a shady spot under a palm tree
+                                    to read a book and unwind in our lush green gardens.</p>
+                            </div>
+                            <button class="btn" onclick="showPage('bookings')">Find Your Spot</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="restaurant.jpg" alt="food and drinks" class="activity-card-image">
+                        <div class="card-content">
+                            <div class="card-text-area">
+                                <h3>Bar & Meat</h3>
+                                <p>Bunjako is home for drinks and good times. Bring your crew and have a taste of our
+                                    muchomo with a cold drink in your hand. Open till late.</p>
+                            </div>
+                            <button class="btn" onclick="showPage('bookings')">Book a Tour</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="picnic.jpg" alt="Picnics" class="activity-card-image">
+                        <div class="card-content">
+                            <div class="card-text-area">
+                                <h3>Picnics in the sun</h3>
+                                <p>Enjoy a picnic on the shores of lake victoria in the sun with the refreshing lake
+                                    breeze. We can prepare a basket for you.</p>
+                            </div>
+                            <button class="btn" onclick="showPage('bookings')">Arrange a Visit</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="bararea.jpg" alt="bar area" class="activity-card-image">
+                        <div class="card-content">
+                            <div class="card-text-area">
+                                <h3>Sunset Vibes</h3>
+                                <p>End your day with a spectacular Bunjako sunset, often accompanied with unmatched
+                                    thrills, music, and chills by the bonfire.</p>
+                            </div>
+                            <button class="btn" onclick="showPage('bookings')">Reserve a Spot</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider"></div>
+        </section>
+
+        <section id="bookings" class="page-section">
+            <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+                <h2 class="section-title">Book Your Stay or Activity</h2>
+                <div class="form-container">
+                    <p>Fill out the form below to inquire about bookings. We'll get back to you shortly!</p>
+                    <form id="bookingForm" action="send_email.php" method="POST">
+                        <div class="form-grid">
+                            <div>
+                                <label for="booking-name" class="form-label">Full Name</label>
+                                <input type="text" id="booking-name" name="booking_name" class="form-input" required>
+                            </div>
+                            <div>
+                                <label for="booking-email" class="form-label">Email Address</label>
+                                <input type="email" id="booking-email" name="booking_email" class="form-input" required>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div>
+                                <label for="booking-phone" class="form-label">Phone Number (Optional)</label>
+                                <input type="tel" id="booking-phone" name="booking_phone" class="form-input">
+                            </div>
+                            <div>
+                                <label for="booking-date" class="form-label">Preferred Date of Visit</label>
+                                <input type="date" id="booking-date" name="booking_date" class="form-input" required>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="booking-guests" class="form-label">Number of Guests/Participants</label>
+                            <input type="number" id="booking-guests" name="booking_guests" class="form-input" min="1"
+                                value="1" required>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="booking-type" class="form-label">Booking For</label>
+                            <select id="booking-type" name="booking_type" class="form-input">
+                                <option value="accommodation">Accommodation</option>
+                                <option value="activity">Specific Activity</option>
+                                <option value="general_inquiry">General Inquiry</option>
+                            </select>
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="booking-message" class="form-label">Message / Specific Requests</label>
+                            <textarea id="booking-message" name="booking_message" rows="4" class="form-input"
+                                placeholder="Let us know if you have any special requests or questions..."></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn">Send Inquiry</button>
+                        </div>
+                    </form>
+                    <p class="form-note">Note: Submitting this form will attempt to send data to 'send_email.php'.
+                        Ensure you have a backend script at this location to process the email.</p>
+                    <div id="booking-form-message"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section">
+            <div class="wavy-divider top"></div>
+            <div class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="grid grid-md-cols-2" style="gap: 2.5rem;">
+                    <div class="form-container" style="margin:0; max-width:none; padding: 1.5rem;">
+                        <h3 class="section-subtitle" style="text-align:left; margin-bottom:1.5rem;">Contact Information
+                        </h3>
+                        <p style="margin-bottom: 1rem; color: #374151;">
+                            <strong style="font-weight: 600;">Bunjako Beach Administration</strong><br>
+                            Bunjako Island, Mpigi District,<br>
+                            Uganda
+                        </p>
+                        <p style="margin-bottom: 1rem; color: #374151;">
+                            <strong style="font-weight: 600;">Phone:</strong> <a href="tel:+256700000000"
+                                style="color: #0891B2; text-decoration:underline;">+256 700 000 000</a> (Sample)
+                        </p>
+                        <p style="margin-bottom: 1rem; color: #374151;">
+                            <strong style="font-weight: 600;">Email:</strong> <a href="mailto:info@bunjakobeach.ug"
+                                style="color: #0891B2; text-decoration:underline;">info@bunjakobeach.ug</a> (Sample)
+                        </p>
+                        <h4 class="section-subtitle"
+                            style="font-size:1.25rem; text-align:left; margin-top:1.5rem; margin-bottom:0.75rem;">Office
+                            Hours</h4>
+                        <p style="color: #374151; margin-bottom: 0.25rem;">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                        <p style="color: #374151;">Saturday - Sunday: 10:00 AM - 3:00 PM (For inquiries)</p>
+                    </div>
+                    <div class="form-container" style="margin:0; max-width:none; padding: 1.5rem;">
+                        <h3 class="section-subtitle" style="text-align:left; margin-bottom:1.5rem;">Send Us a Message
+                        </h3>
+                        <form id="contactForm" action="send_contact_email.php" method="POST">
+                            <div style="margin-bottom: 1rem;">
+                                <label for="contact-name" class="form-label">Your Name</label>
+                                <input type="text" id="contact-name" name="contact_name" class="form-input" required>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label for="contact-email" class="form-label">Your Email</label>
+                                <input type="email" id="contact-email" name="contact_email" class="form-input" required>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label for="contact-subject" class="form-label">Subject</label>
+                                <input type="text" id="contact-subject" name="contact_subject" class="form-input"
+                                    required>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <label for="contact-message" class="form-label">Message</label>
+                                <textarea id="contact-message" name="contact_message" rows="5" class="form-input"
+                                    required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn">Send Message</button>
+                            </div>
+                        </form>
+                        <p class="form-note">Note: Submitting this form will attempt to send data to
+                            'send_contact_email.php'.</p>
+                        <div id="contact-form-message"></div>
+                    </div>
+                </div>
+                <div style="margin-top: 3rem;">
+                    <h3 class="section-subtitle text-center">Find Us Here</h3>
+                    <div
+                        style="aspect-ratio: 16 / 9; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); background-color:#E5E7EB; display:flex; align-items:center; justify-content:center; position:relative;">
+                        <img src="https://placehold.co/800x450/A0AEC0/FFFFFF?text=Map+of+Bunjako+Island+(Placeholder)"
+                            alt="Map Placeholder" style="width:100%; height:100%; object-fit:cover;">
+                        <p style="position:absolute; color:#374151; font-size:0.875rem;">Actual Google Map embed would
+                            go here.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wavy-divider"></div>
+        </section>
+    </main>
+
+    <footer class="footer-bg">
+        <div class="container">
+            <div style="margin-bottom: 1rem;">
+                <a href="#" onclick="showPage('home', this)">Home</a>|
+                <a href="#" onclick="showPage('activities', this)">Activities</a>|
+                <a href="#" onclick="showPage('bookings', this)">Bookings</a>|
+                <a href="#" onclick="showPage('contact', this)">Contact</a>
+            </div>
+            <p>© <span id="currentYear"></span> Bunjako Beach. All Rights Reserved.</p>
+            <p>Designed with <span class="text-red-400">♥</span> for a memorable beach experience.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hero Carousel
+        const heroSlides = [
+            { id: 'heroCarouselSlide1', src: 'lakeview.jpg', alt: 'Scenic view of Bunjako Beach' },
+            { id: 'heroCarouselSlide2', src: 'beachview.jpg', alt: 'Relaxing beach chairs' },
+            { id: 'heroCarouselSlide3', src: 'overview.jpg', alt: 'Overview of the beach area' },
+            { id: 'heroCarouselSlide4', src: 'sideview.jpg', alt: 'Side view of Bunjako' },
+            { id: 'heroCarouselSlide5', src: 'dj.jpg', alt: 'DJ playing at Bunjako' },
+        ];
+        let currentHeroSlideIndex = 0;
+        let heroAutoSlideInterval;
+
+        function showHeroSlide(index) {
+            heroSlides.forEach((slide, i) => {
+                const slideElement = document.getElementById(slide.id);
+                if (slideElement) {
+                    if (i === index) {
+                        slideElement.classList.add('active');
+                    } else {
+                        slideElement.classList.remove('active');
+                    }
+                }
+            });
+        }
+
+        function nextHeroSlide() {
+            currentHeroSlideIndex = (currentHeroSlideIndex + 1) % heroSlides.length;
+            showHeroSlide(currentHeroSlideIndex);
+        }
+
+        function startHeroAutoSlide() {
+            if (heroAutoSlideInterval) clearInterval(heroAutoSlideInterval);
+            heroAutoSlideInterval = setInterval(nextHeroSlide, 5000); // 5 seconds
+        }
+
+
+        // Discover Paradise Carousel (No longer a carousel, static image)
+        // const discoverImages = [ /* Not used anymore */ ];
+        // let currentDiscoverIndex = 0;
+        // let discoverCarouselImageElement;
+        // let discoverAutoSlideInterval;
+        // Functions like showDiscoverCarouselImage, prevDiscoverImage, nextDiscoverImage, etc. are removed.
+
+
+        // Page navigation
+        const pages = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('header nav.desktop-nav a.nav-link');
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a.nav-link');
+
+        function showPage(pageId, clickedLink) {
+            pages.forEach(page => {
+                page.classList.add('hidden');
+                page.classList.remove('active');
+            });
+
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('active');
+            }
+
+            const allNavLinks = [...navLinks, ...mobileNavLinks];
+            allNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if ((clickedLink && link === clickedLink) || (link.getAttribute('onclick') && link.getAttribute('onclick').includes(`showPage('${pageId}'`))) {
+                    link.classList.add('active');
+                }
+            });
+
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+
+        function closeMobileMenu() {
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // Form submission handling
+        const bookingForm = document.getElementById('bookingForm');
+        const bookingFormMessage = document.getElementById('booking-form-message');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const name = document.getElementById('booking-name').value;
+                const email = document.getElementById('booking-email').value;
+                const date = document.getElementById('booking-date').value;
+
+                if (!name || !email || !date) {
+                    bookingFormMessage.innerHTML = '<p style="color:red;">Please fill in all required fields (Name, Email, Date).</p>';
+                    return;
+                }
+                bookingFormMessage.innerHTML = '<p style="color:green;">Thank you for your inquiry! (This is a demo)</p>';
+                setTimeout(() => { bookingFormMessage.innerHTML = ''; }, 5000);
+            });
+        }
+
+        const contactForm = document.getElementById('contactForm');
+        const contactFormMessage = document.getElementById('contact-form-message');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const name = document.getElementById('contact-name').value;
+                const email = document.getElementById('contact-email').value;
+                const message = document.getElementById('contact-message').value;
+
+                if (!name || !email || !message) {
+                    contactFormMessage.innerHTML = '<p style="color:red;">Please fill in all fields.</p>';
+                    return;
+                }
+                contactFormMessage.innerHTML = '<p style="color:green;">Thank you for your message! (This is a demo)</p>';
+                setTimeout(() => { contactFormMessage.innerHTML = ''; }, 4000);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Initialize Hero Carousel
+            if (heroSlides.length > 0) {
+                // Ensure hero slide elements exist before trying to use them
+                let allHeroSlidesExist = true;
+                heroSlides.forEach(slide => {
+                    if (!document.getElementById(slide.id)) {
+                        allHeroSlidesExist = false;
+                        console.error("Hero slide element not found:", slide.id);
+                    }
+                });
+                if (allHeroSlidesExist) {
+                    showHeroSlide(currentHeroSlideIndex);
+                    startHeroAutoSlide();
+                }
+            }
+
+            // Show initial page (Home) and set nav link active
+            const homeNavLink = document.getElementById('nav-home') || (mobileNavLinks.length > 0 ? mobileNavLinks[0] : null);
+            showPage('home', homeNavLink);
+        });
+
+    </script>
+</body>
+
+</html>
