@@ -4,229 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookings - Bunjako Beach</title>
+    <title>Bunjako Beach</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap"
         rel="stylesheet">
-    <!-- AOS (Animate On Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #E0F7FA;
-            /* Light cyan background */
-            scroll-behavior: smooth;
-        }
+    <link href="styles/main.css" rel="stylesheet">
+    
 
-        /* Styles for the active navigation link */
-        .nav-link.active {
-            color: #0E7490;
-            /* equivalent to text-cyan-900 */
-            background-color: #A5F3FC;
-            /* equivalent to bg-cyan-200 */
-            font-weight: 600;
-            /* equivalent to font-semibold */
-        }
-
-        /* Wavy divider styles */
-        .wavy-divider {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            height: 80px;
-            /* Adjust height of the wave */
-        }
-
-        .wavy-divider::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background-repeat: repeat-x;
-            height: 20px;
-            /* Height of the wave crest */
-            background-size: 40px 40px;
-            /* Size of one wave cycle */
-            background-image: radial-gradient(circle at 20px -10px, transparent 20px, #E0F7FA 21px);
-            /* Light cyan to match body */
-        }
-
-        .wavy-divider.top::before {
-            top: 0;
-            bottom: auto;
-            background-image: radial-gradient(circle at 20px 20px, transparent 20px, #E0F7FA 21px);
-            /* Light cyan to match body */
-            transform: rotate(180deg);
-        }
-
-        .footer-bg {
-            background-color: #006064;
-            /* Dark cyan */
-        }
-
-        .logo-font {
-            font-family: 'Pacifico', cursive;
-        }
-        
-        /* Custom animations */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        
-        .floating {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes wave {
-            0% {
-                transform: rotate(0deg);
-            }
-            10% {
-                transform: rotate(14deg);
-            }
-            20% {
-                transform: rotate(-8deg);
-            }
-            30% {
-                transform: rotate(14deg);
-            }
-            40% {
-                transform: rotate(-4deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
-            60% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(0deg);
-            }
-        }
-        
-        .waving {
-            animation: wave 2.5s infinite;
-            transform-origin: 70% 70%;
-        }
-        
-        /* Parallax effect for hero section */
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        
-        /* Gradient overlay for hero */
-        .hero-overlay {
-            background: linear-gradient(135deg, rgba(0, 188, 212, 0.7) 0%, rgba(0, 151, 167, 0.8) 100%);
-        }
-        
-        /* Hover effects for cards */
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        /* Pulse animation for CTA buttons */
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #E0F7FA;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: #00ACC1;
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00838F;
-        }
-    </style>
 </head>
 
 <body>
-    <header class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300" id="main-header">
+    <header class="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 transition-all duration-300" id="main-header">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <a href="index.html" class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40" class="h-10 w-auto text-cyan-600">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center space-x-2 group" aria-label="Bunjako Beach Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40" class="h-12 w-auto text-cyan-600 transition-transform duration-300 group-hover:scale-110">
                         <defs>
                             <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:0.5" />
-                                <stop offset="100%" style="stop-color:#0097A7;stop-opacity:0.5" />
+                                <stop offset="0%" style="stop-color:#00BCD4;stop-opacity:0.7" />
+                                <stop offset="100%" style="stop-color:#0097A7;stop-opacity:0.7" />
                             </linearGradient>
                         </defs>
-                        <path fill="url(#waveGrad)"
+                        <path fill="url(#waveGrad)" class="animate-wave"
                             d="M0 20 Q 12.5 5, 25 20 T 50 20 T 75 20 T 100 20 L 100 35 Q 87.5 50, 75 35 T 50 35 T 25 35 T 0 35 Z" />
-                        <circle cx="85" cy="10" r="7" fill="#FFEB3B" />
-                        <text x="5" y="18" class="logo-font text-lg" fill="#00796B"
-                            style="font-size:12px;">Bunjako</text>
-                        <text x="25" y="30" class="logo-font text-lg" fill="#004D40"
-                            style="font-size:12px;">Beach</text>
+                        <circle cx="85" cy="10" r="7" fill="#FFEB3B" class="animate-pulse" />
+                        <text x="5" y="18" class="logo-font" fill="#00796B" font-size="14">Bunjako</text>
+                        <text x="25" y="30" class="logo-font" fill="#004D40" font-size="14">Beach</text>
                     </svg>
                 </a>
 
-                <nav class="hidden md:flex space-x-2">
-                    <a href="index.html"
-                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Home</a>
-                    <a href="activities.html"
-                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Activities</a>
-                    <a href="bookings.html"
-                        class="nav-link active px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Bookings</a>
-                    <a href="contact.html"
-                        class="nav-link px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Contact</a>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-1" aria-label="Main navigation">
+                    <a href="index.html" id="nav-home"
+                        class="nav-link group px-4 py-2 text-lg text-cyan-700 rounded-md transition-all duration-300 hover:bg-cyan-50 active:bg-cyan-100">
+                        <span class="relative inline-flex items-center">
+                            Home
+                            <span class="nav-indicator"></span>
+                        </span>
+                    </a>
+                    <a href="activities.html" id="nav-activities"
+                        class="nav-link group px-4 py-2 text-lg text-cyan-700 rounded-md transition-all duration-300 hover:bg-cyan-50 active:bg-cyan-100">Activities</a>
+                    <a href="bookings.html" id="nav-bookings"
+                        class="nav-link group px-4 py-2 text-lg text-cyan-700 rounded-md transition-all duration-300 hover:bg-cyan-50 active:bg-cyan-100">Bookings</a>
+                    <a href="contact.html" id="nav-contact"
+                        class="nav-link group px-4 py-2 text-lg text-cyan-700 rounded-md transition-all duration-300 hover:bg-cyan-50 active:bg-cyan-100">Contact</a>
                 </nav>
 
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-cyan-700 hover:text-cyan-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-                </div>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" 
+                    class="md:hidden relative z-50 p-2 rounded-md text-cyan-700 hover:bg-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-500" 
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    aria-label="Toggle menu">
+                    <span class="sr-only">Open main menu</span>
+                    <div class="w-6 h-6 flex items-center justify-center relative">
+                        <span class="hamburger-line"></span>
+                    </div>
+                </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-            <a href="index.html"
-                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Home</a>
-            <a href="activities.html"
-                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Activities</a>
-            <a href="bookings.html"
-                class="block nav-link active text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Bookings</a>
-            <a href="contact.html"
-                class="block nav-link text-center px-4 py-2 text-lg text-cyan-700 hover:text-cyan-900 hover:bg-cyan-100 rounded-md transition-colors duration-300">Contact</a>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" 
+            class="fixed inset-0 bg-white/95 backdrop-blur-sm transform translate-x-full transition-transform duration-300 ease-in-out md:hidden"
+            aria-hidden="true">
+            <nav class="h-full flex flex-col justify-center items-center space-y-8" aria-label="Mobile navigation">
+                <a href="index.html" class="mobile-nav-link active">Home</a>
+                <a href="activities.html" class="mobile-nav-link">Activities</a>
+                <a href="bookings.html" class="mobile-nav-link">Bookings</a>
+                <a href="contact.html" class="mobile-nav-link">Contact</a>
+            </nav>
         </div>
     </header>
 
@@ -440,6 +289,7 @@
             }, 500);
         });
     </script>
+    <script src="js/navigation.js" defer></script>
 </body>
 
 </html>
